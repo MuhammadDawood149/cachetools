@@ -1,0 +1,11 @@
+id,description,maxsize,operations,expected_keys,expected_currsize,expected_error
+L01,Fill past capacity evicts least recently used,2,set:a;set:b;set:c,b|c,2,
+L02,Read refreshes recency,2,set:a;set:b;get:a;set:c,a|c,2,
+L03,Overwrite refreshes recency,2,set:a;set:b;set:a;set:c,a|c,2,
+L04,maxsize 1 keeps only the latest key,1,set:a;set:b,b,1,
+L05,Delete frees capacity,2,set:a;set:b;del:a,b,1,
+L06,Reading a missing key raises KeyError,2,set:a;get:zzz,a,1,KeyError
+L07,maxsize 0 rejects any item,0,set:a,,0,ValueError
+L08,Deleting a missing key raises KeyError,2,set:a;del:zzz,a,1,KeyError
+L09,popitem removes the least recently used,3,set:a;set:b;set:c;pop,b|c,2,
+L10,popitem on an empty cache raises KeyError,2,pop,,0,KeyError
